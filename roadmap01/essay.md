@@ -34,3 +34,6 @@ Encontrei duas conexões que podem ser classificados como potencialmente malicio
 - Conexão 2: Tráfego HTTPS para site de compartilhamento de arquivos, que pode indicar que a infecção ocorreu após o download de um arquivo comprometido, no domínio `situla.bitbit.net`.
 
 ![Pergunta 5-2](./question05-2.png)
+
+## Pergunta 6
+
