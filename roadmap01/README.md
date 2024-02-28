@@ -114,3 +114,35 @@ The URL was created in **Mon, 12 Nov 2018 21:01:49 GMT**.
 The URL that returned an executable *6169583.exe* file is **http://timlinger.com/nmw/**.
 
 ![Question 18](./docs/img/question18.png)
+
+## Question 19
+
+Given that the domain controller name is SPOONWATCH-DC, we can assume that there is traffic in NetLogon, which leads to filtering traffic in ntlmssp. Inspecting that we can see that the IP for the domain controller is **192.168.1.2**.
+
+![Question 19](./docs/img/question20.png)
+
+## Question 20
+
+The user account for the 192.168.1.216 IP is **steve.smith**.
+
+![Question 20](./docs/img/question20.png)
+
+## Question 21
+
+The hostname for the 192.168.1.216 IP is **DESKTOP-GXMYNO2**.
+
+![Question 21](./docs/img/question20.png)
+
+## Question 22
+
+The **2.56.57.108** IP returned a ZIP file via POST request. It's interesting to notice that there's some suspicious information on that file, like the languages supported, like just English and Russian, and the information "This program cannot be run in DOS mode".
+
+![Question 22-1](./docs/img/question22.png)
+
+![Question 22-2](./docs/img/question22-2.png)
+
+## Question 23
+
+Following the HTTP stream for the suspicious download we can check that all the traffic to the destination went via port **49738**.
+
+![Question 23](./docs/img/question23.png)
