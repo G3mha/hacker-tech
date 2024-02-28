@@ -53,7 +53,7 @@ The hostname for the Windows client in 192.168.2.147 is **Lyakh-Win7-PC**. I ach
 
 ## Question 08
 
-The Windows username used in 192.168.2.147, based on the inspection of the packets with Kerberos protocol, is **jermija.lyakh**.
+The Windows username used in 192.168.2.147, based on the inspection of the packets with Kerberos protocol, is **jermija**.
 
 ![Question 08](./docs/img/question08.png)
 
@@ -81,3 +81,36 @@ After infection, the host tried to establish a TCP connection with IP **198.54.1
 
 ## Question 13
 
+The MAC address for the Windows client at 172.17.1.129 is **00:1e:67:4a:d7:5c**.
+
+![Question 13](./docs/img/question13.png)
+
+## Question 14
+
+The hostname for the Windows client at 172.17.1.129 is **NALYVAIKO-PC**, as it can be osberved in the CNameString in the TCP request.
+
+![Question 14](./docs/img/question14.png)
+
+## Question 15
+
+The Windows username used in 172.17.1.129, based on the inspection of the packets with Kerberos protocol, is **innochka**.
+
+![Question 15](./docs/img/question15.png)
+
+## Question 16
+
+The URL that returned a Microsoft Word document was **http://ifcingenieria.cl/QpX8It/BIZ/Firmenkunden/**.
+
+![Question 16](./docs/img/question16.png)
+
+## Question 17
+
+The URL was created in **Mon, 12 Nov 2018 21:01:49 GMT**.
+
+![Question 17](./docs/img/question17.png)
+
+## Question 18
+
+The URL that returned an executable *6169583.exe* file is **http://timlinger.com/nmw/**.
+
+![Question 18](./docs/img/question18.png)
