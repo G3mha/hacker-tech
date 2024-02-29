@@ -1,51 +1,67 @@
 import socket
 import threading
+import colorama
 from time import time
 import json
-import whatportis
+from concurrent.futures import ThreadPoolExecutor
 
-# Use the whatportis to get the port description for 443
-print(whatportis)
 
-# Função para escanear uma única porta
-def scan_port(host, port):
+def scan_port(host, port): # Scans a single port
   try:
-    # Cria um socket TCP
+    # Create the TCP socket
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-      # Define o tempo limite de conexão
-      sock.settimeout(0.5)
-      # Conecta ao host e porta
-      sock.connect((host, port))
-      # Retorna True se a porta estiver aberta
-      return True
+      sock.settimeout(0.5) # timeout in 500ms
+      sock.connect((host, port)) # Try to connect to the port
+      color = colorama.Fore.GREEN
+      try:
+        service = socket.getservbyport(port) # Get the service name
+      except OSError:
+        service = "Unknown"
+      print(f"Port {port}: {color}{service}{colorama.Fore.RESET}")
+      with open("port_scan_results.json", "a") as file:
+        json.dump(dict(host=host, port=port, service=service), file)
   except socket.error:
-    # Retorna False se a porta estiver fechada ou se ocorrer um erro
-    return False
+    if only_open == "n":
+      color = colorama.Fore.RED
+      print(f"Port {port}: {color}Closed{colorama.Fore.RESET}")
+      with open("port_scan_results.json", "a") as file:
+        json.dump(dict(host=host, port=port, service="Closed"), file)
 
-# Função para escanear um intervalo de portas
-def scan_ports(host, ports, threads=1):
-  # Lista para armazenar os resultados
-  results = []
+def scan_ports(host, ports): # Scans multiple ports
+  # Single-threaded scanning
+  for port in ports:
+    scan_port(host, port)
 
-  # Se o número de threads for 1, usa a função scan_port diretamente
-  if threads == 1:
-      for port in ports:
-          results.append((port, scan_port(host, port)))
-
-  # Se o número de threads for maior que 1, usa multithreading
-  else:
-      # Cria um pool de threads
-      with ThreadPool(max_workers=threads) as pool:
-          # Enfileira as tarefas de scaneamento
-          jobs = [(port, host) for port in ports]
-          for port, result in pool.imap_unordered(scan_port, jobs):
-              results.append((port, result))
-
-  return results
-
-# Função principal
 def main():
-  # Obtém o endereço IP ou nome do host
-  host = input("Digite o endereço IP ou nome do host: ")
+  # Clear the output file
+  with open("port_scan_results.json", "w") as file:
+    file.write("")
 
-  # Obtém o intervalo
+  # Print the banner
+  print(colorama.Fore.BLUE + "-" * 35)
+  print(" " * 3 + "PORT SCANNER by Enricco Gemha")
+  print("-" * 35 + colorama.Fore.RESET)
+
+  host = input(f"{colorama.Fore.BLUE}Enter the IP address or hostname to scan: {colorama.Fore.RESET}")
+  start_port = int(input(f"{colorama.Fore.BLUE}Enter the start port number: {colorama.Fore.RESET}"))
+  end_port = int(input(f"{colorama.Fore.BLUE}Enter the end port number: {colorama.Fore.RESET}"))
+  global only_open
+  only_open = input(f"{colorama.Fore.BLUE}Only show open ports? (y/n): {colorama.Fore.RESET}").lower()
+  
+  # Print a separator
+  print("-" * 35)
+
+  ports = range(start_port, end_port + 1)
+
+  start_time = time()
+
+  scan_ports(host, ports)
+
+  # Print a separator
+  print("-" * 35)
+  print(f"Execution time: {time() - start_time:.2f} seconds")
+  print("The output has been saved to port_scan_results.json")
+
+if __name__ == "__main__":
+  colorama.init()
+  main()
