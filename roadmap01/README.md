@@ -18,7 +18,7 @@ While the IDS provides only alerts on possible threats and intrusions, therefore
 
 ## Question 03
 
-The DHCP's IP on this network is **10.0.19.14**.
+The DHCP's IP on this network is **10.0.19.1**, while our PC IP is 10.0.19.14.
 
 ![Question 03](./docs/img/question03.png)
 
@@ -29,6 +29,7 @@ The domain controller (DC) name on this network is **BURNINCANDLE-DC**.
 ![Question 04](./docs/img/question04.png)
 
 ## Question 05
+
 I found two connections that can be classified as potential malicious:
 
 - Connection 1: HTTP GET request to suspicious hostname, **oceriesfornot.top**, which was described in Internet searches as a hostname that hosts malware. Besides that, if we follow the HTTP stream we can observe a request resulting in the download of a text file `Cooper.txt`, which appears to be facade. More than that, it can be related to decripting the zip file that was also downloaded in the same connection.
