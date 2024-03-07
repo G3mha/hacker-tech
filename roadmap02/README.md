@@ -58,4 +58,20 @@ Running the command `nmap 172.20.10.6 -p 3306,5432 -sV --script vuln`, we can se
 
   - Yes, there is. The name is **mail.ietf.org** and its IP is **50.223.129.194**. ![Task 01 - Exercise F-03](./docs/img/task01-exerciseF-03.png)
 
-### Exercise G - 
+### Exercise G - Choose a website and answer the questions below
+
+- i. What are the DNS servers responsible for this domain?
+
+  - The domain **steampowered.com** is managed by the following DNS servers: **a7-66.akam.net.**, **a24-64.akam.net.**, **a2-64.akam.net.**, **a1-194.akam.net.**, **a9-66.akam.net.**, and **a22-67.akam.net.**. ![Task 01 - Exercise G-01](./docs/img/task01-exerciseG-01.png)
+
+- ii. Are there other services hosted on this website? Who are they?
+
+  - Yes, there is a Mail (MX) Service. ![Task 01 - Exercise G-02](./docs/img/task01-exerciseG-01.png)
+
+- iii. What is the Web Server and OS that host this website? What were its last alterations?
+
+- iv.
+
+- v.
+
+- vi.
