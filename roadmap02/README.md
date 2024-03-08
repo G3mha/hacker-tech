@@ -70,8 +70,216 @@ Running the command `nmap 172.20.10.6 -p 3306,5432 -sV --script vuln`, we can se
 
 - iii. What is the Web Server and OS that host this website? What were its last alterations?
 
-- iv.
+  - The Web Server that hosts [Steam](steampowered.com) is **nginx**. However if we analyze Nikto's output on the screenshot two below, we can see it redirects from *nginx* to **AkamaiGHost**. This makes sense due to the fact that *nginx* is a load balancer, therefore just manages the traffic. On the other hand, *AkamaiGHost* is the WAF for this application. ![Task 01 - Exercise G-03-01](./docs/img/task01-exerciseG-03-01.png)
+  
+  - Unfortunately, it was not possible to determine the OS that hosts the website, as said by `nmap -O steampowered.com`, **"no OS matches for host"**. ![Task 01 - Exercise G-03-02](./docs/img/task01-exerciseG-03-02.png)
 
-- v.
+  - There's a **redirect to the subdomain *store.steampowered.com*** and a **server change from nginx to AkamaiGHost**. ![Task 01 - Exercise G-03-03](./docs/img/task01-exerciseG-03-03.png)
 
-- vi.
+- iv. What technologies does this website uses?
+
+  - As mentioned before, this website uses technologies such as a load balancer (nginx) and a WAF (AkamaiGHost).
+
+- v. Is there any WAF protecting this website?
+
+  - As mentioned previously, yes, there is, AkaiGHost, from Cloudflare.
+
+- vi. The domain has a configured e-mail server? What are the IPs?
+
+  - Yes, it does have a configured e-mail server (MX), **smtp.steampowered.com.**. Its IP address is **208.64.202.36**. ![Task 01 - Exercise G-03-06](./docs/img/task01-exerciseG-03-06.png)
+
+### Exercise H - Mapping CMS
+
+The mapping of [rodolfoavelino.com.br](rodolfoavelino.com.br)'s domain can be checked below:
+
+![Task 01 - Exercise H](./docs/img/task01-exerciseH.png)
+
+And fully:
+
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.25
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[+] URL: https://www.rodolfoavelino.com.br/ [104.21.57.232]
+[+] Started: Thu Mar  7 21:20:47 2024
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entries:
+ |  - cf-cache-status: DYNAMIC
+ |  - report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=%2BWZ%2F1JAFEUKkM%2BNsgYCRW%2F0dmOlIsXaPg3g1lvSgY4FfL5pfb0nCybPar2HDZpudN01Iub0ZNuvM83x2wvppo%2BAgDM9HT49NxUdCeX9uG%2B2LtRkXjs4L7Fh0vqqL977wDSNf6NaIXckNnc1U"}],"group":"cf-nel","max_age":604800}
+ |  - nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+ |  - server: cloudflare
+ |  - cf-ray: 860ee7626bea02f4-GRU
+ |  - alt-svc: h3=":443"; ma=86400
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] robots.txt found: https://www.rodolfoavelino.com.br/robots.txt
+ | Interesting Entries:
+ |  - /wp-admin/
+ |  - /wp-admin/admin-ajax.php
+ | Found By: Robots Txt (Aggressive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: https://www.rodolfoavelino.com.br/xmlrpc.php
+ | Found By: Link Tag (Passive Detection)
+ | Confidence: 100%
+ | Confirmed By: Direct Access (Aggressive Detection), 100% confidence
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+
+[+] Upload directory has listing enabled: https://www.rodolfoavelino.com.br/wp-content/uploads/
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] The external WP-Cron seems to be enabled: https://www.rodolfoavelino.com.br/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 6.4.3 identified (Latest, released on 2024-01-30).
+ | Found By: Style Etag (Aggressive Detection)
+ |  - https://www.rodolfoavelino.com.br/wp-admin/load-styles.php, Match: '6.4.3'
+ | Confirmed By: Query Parameter In Upgrade Page (Aggressive Detection)
+ |  - https://www.rodolfoavelino.com.br/wp-includes/css/dashicons.min.css?ver=6.4.3
+ |  - https://www.rodolfoavelino.com.br/wp-includes/css/buttons.min.css?ver=6.4.3
+ |  - https://www.rodolfoavelino.com.br/wp-admin/css/forms.min.css?ver=6.4.3
+ |  - https://www.rodolfoavelino.com.br/wp-admin/css/l10n.min.css?ver=6.4.3
+ |  - https://www.rodolfoavelino.com.br/wp-admin/css/install.min.css?ver=6.4.3
+
+[+] WordPress theme in use: zerif-lite
+ | Location: https://www.rodolfoavelino.com.br/wp-content/themes/zerif-lite/
+ | Latest Version: 1.8.5.49 (up to date)
+ | Last Updated: 2019-06-28T00:00:00.000Z
+ | Readme: https://www.rodolfoavelino.com.br/wp-content/themes/zerif-lite/readme.md
+ | Style URL: https://www.rodolfoavelino.com.br/wp-content/themes/zerif-lite/style.css?ver=1.8.5.49
+ | Style Name: Zerif Lite
+ | Style URI: https://themeisle.com/themes/zerif-lite/
+ | Description: Zerif LITE is a free one page WordPress theme. It's perfect for web agency business,corporate busine...
+ | Author: ThemeIsle
+ | Author URI: https://themeisle.com
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ | Confirmed By: Css Style In 404 Page (Passive Detection)
+ |
+ | Version: 1.8.5.49 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - https://www.rodolfoavelino.com.br/wp-content/themes/zerif-lite/style.css?ver=1.8.5.49, Match: 'Version: 1.8.5.49'
+
+[+] Enumerating All Plugins (via Passive Methods)
+[+] Checking Plugin Versions (via Passive and Aggressive Methods)
+
+[i] Plugin(s) Identified:
+
+[+] contact-form-7
+ | Location: https://www.rodolfoavelino.com.br/wp-content/plugins/contact-form-7/
+ | Latest Version: 5.9 (up to date)
+ | Last Updated: 2024-03-02T07:25:00.000Z
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | Version: 5.9 (90% confidence)
+ | Found By: Query Parameter (Passive Detection)
+ |  - https://www.rodolfoavelino.com.br/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.9
+ | Confirmed By: Readme - Stable Tag (Aggressive Detection)
+ |  - https://www.rodolfoavelino.com.br/wp-content/plugins/contact-form-7/readme.txt
+
+[+] ultimate-social-media-icons
+ | Location: https://www.rodolfoavelino.com.br/wp-content/plugins/ultimate-social-media-icons/
+ | Latest Version: 2.8.9 (up to date)
+ | Last Updated: 2024-03-07T00:23:00.000Z
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | Version: 2.8.9 (100% confidence)
+ | Found By: Query Parameter (Passive Detection)
+ |  - https://www.rodolfoavelino.com.br/wp-content/plugins/ultimate-social-media-icons/css/sfsi-style.css?ver=2.8.9
+ |  - https://www.rodolfoavelino.com.br/wp-content/plugins/ultimate-social-media-icons/js/custom.js?ver=2.8.9
+ | Confirmed By:
+ |  Readme - Stable Tag (Aggressive Detection)
+ |   - https://www.rodolfoavelino.com.br/wp-content/plugins/ultimate-social-media-icons/readme.txt
+ |  Readme - ChangeLog Section (Aggressive Detection)
+ |   - https://www.rodolfoavelino.com.br/wp-content/plugins/ultimate-social-media-icons/readme.txt
+
+[+] wp-statistics
+ | Location: https://www.rodolfoavelino.com.br/wp-content/plugins/wp-statistics/
+ | Latest Version: 14.5 (up to date)
+ | Last Updated: 2024-02-24T14:32:00.000Z
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | Version: 14.5 (100% confidence)
+ | Found By: Readme - Stable Tag (Aggressive Detection)
+ |  - https://www.rodolfoavelino.com.br/wp-content/plugins/wp-statistics/readme.txt
+ | Confirmed By: Readme - ChangeLog Section (Aggressive Detection)
+ |  - https://www.rodolfoavelino.com.br/wp-content/plugins/wp-statistics/readme.txt
+
+[+] wp-stats-manager
+ | Location: https://www.rodolfoavelino.com.br/wp-content/plugins/wp-stats-manager/
+ | Latest Version: 6.9.5 (up to date)
+ | Last Updated: 2024-02-04T06:42:00.000Z
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | Version: 6.9.5 (80% confidence)
+ | Found By: Readme - Stable Tag (Aggressive Detection)
+ |  - https://www.rodolfoavelino.com.br/wp-content/plugins/wp-stats-manager/readme.txt
+
+[+] Enumerating Config Backups (via Passive and Aggressive Methods)
+ Checking Config Backups - Time: 00:00:21 <=============================================================================> (137 / 137) 100.00% Time: 00:00:21
+
+[i] No Config Backups Found.
+
+[!] No WPScan API Token given, as a result vulnerability data has not been output.
+[!] You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[+] Finished: Thu Mar  7 21:21:42 2024
+[+] Requests Done: 190
+[+] Cached Requests: 7
+[+] Data Sent: 58.22 KB
+[+] Data Received: 925.63 KB
+[+] Memory used: 281.73 MB
+[+] Elapsed time: 00:00:54
+
+### Exercise I - OSINT
+
+- i. What's the CNPJ responsible for the domain [insper.edu.br](insper.edu.br)?
+
+  - The CNPJ is **06.070.152/0001-47**, as shown in this Google search. ![Task 01 - Exercise I-01](./docs/img/task01-exerciseI-01.png)
+
+- ii. How many articles does Rodolfo Avelino have in [uol.com.br](uol.com.br)?
+
+  - After applying Google Dork techniques to the search, it is possible to find 14 articles featuring Rodolfo Avelino, by counting them one by one in Google search results. ![Task 01 - Exercise I-02](./docs/img/task01-exerciseI-02.png)
+
+- iii. Find a URL that may contain backup files (security copies), insecurely exposed.
+
+  - After some Google Dork, I was able to find a URL from Brazilian Government containing an PostgreSQL dump, probably froma backup, in the URL: [https://softwarepublico.gov.br/gitlab/gsan/gsan/raw/21f3a1154da63935ee2fcd6d2aa9bab86a2494f3/projects/migrations/scripts/bootstrap.sql](https://softwarepublico.gov.br/gitlab/gsan/gsan/raw/21f3a1154da63935ee2fcd6d2aa9bab86a2494f3/projects/migrations/scripts/bootstrap.sql). ![Task 01 - Exercise I-03](./docs/img/task01-exerciseI-03.png)
+
+### Exercise J - Search for a PDF containing "SUPERFATURAMENTO NO VALOR" in hosted pages by the "Tribunal de Contas do Estado" from any state
+
+As result of my Google Dork search I found many files contains the aforementioned specifications, like [https://decisoes.tce.go.gov.br/ConsultaDecisoes/CarregaDocumentoAssinadoPDF?idDocumento=381431202442452371&tipoDecisao=341512](https://decisoes.tce.go.gov.br/ConsultaDecisoes/CarregaDocumentoAssinadoPDF?idDocumento=381431202442452371&tipoDecisao=341512). It can be seen in the image below.
+
+![Task 01 - Exercise J](./docs/img/task01-exerciseJ.png)
+
