@@ -2,5 +2,16 @@
   "manifest_version": 2,
   "name": "VANguard",
   "version": "1.0",
+  "permissions": ["http://*/*", "https://*/*"],
+  "browser_action": {
+    "default_icon": "button/shield.png",
+    "default_title": "VANguard",
+    "default_popup": "popup/popup.html"
+  },
+  "web_accessible_resources": [
+    "popup/frog.jpg",
+    "popup/turtle.jpg",
+    "popup/snake.jpg"
+  ]
 }
 
