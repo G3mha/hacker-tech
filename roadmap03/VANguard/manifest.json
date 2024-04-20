@@ -6,12 +6,13 @@
   "browser_action": {
     "default_icon": "button/shield.png",
     "default_title": "VANguard",
-    "default_popup": "popup/popup.html"
+    "default_popup": "pages/index.html"
   },
   "web_accessible_resources": [
-    "popup/frog.jpg",
-    "popup/turtle.jpg",
-    "popup/snake.jpg"
+    "pages/3rd-party.html",
+    "pages/hijacking.html",
+    "pages/storage.html",
+    "pages/cookies.html",
+    "pages/canvas.html"
   ]
 }
-
